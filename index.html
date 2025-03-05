@@ -8,14 +8,12 @@
     <script src="js/mindar-image-aframe.prod.js"></script>
   </head>
   <body>
-    <!-- <a-scene
+    <a-scene
       mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.001; filterBeta: 1000;"
-      color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-    > -->
-    <a-scene>
+    >
+      <!-- <a-scene> -->
       <a-assets>
         <img id="fr1" src="./pages/FR1.png" />
         <img id="fr2" src="./pages/FR2.png" />
@@ -49,14 +47,14 @@
 
       <!-- <a-camera position="0 0 0" look-controls="enabled: false"></a-camera> -->
       <a-camera
-        position="0 1.5 0"
+        position="0 0 0"
         look-controls="enabled: false"
         cursor="fuse: false; rayOrigin: mouse;"
         raycaster="far: ${customFields.libVersion}; objects: .clickable"
       ></a-camera>
 
-      <!-- <a-entity id="root" mindar-image-target="targetIndex: 0"> -->
-      <a-entity id="root" position="0 1.5 -2">
+      <a-entity id="root" mindar-image-target="targetIndex: 0">
+        <!-- <a-entity id="root"> -->
         <a-entity id="container"></a-entity>
         <!-- <a-plane
           id="p1"
