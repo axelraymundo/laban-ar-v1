@@ -1,36 +1,54 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="js/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="js/aframe-gif-shader.min.js"></script>
     <script src="js/mindar-image-aframe.prod.js"></script>
   </head>
   <body>
-    <a-scene
-      mindar-image="imageTargetSrc: targets.mind;"
+    <!-- <a-scene
+      mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.001; filterBeta: 1000;"
       color-space="sRGB"
       renderer="colorManagement: true, physicallyCorrectLights"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-    >
-      <a-assets>
-        <img id="fr1" src="/pages/FR1.png" />
-        <img id="fr2" src="/pages/FR2.png" />
-        <img id="fr3" src="/pages/FR3.png" />
-        <img id="fr4" src="/pages/FR4.png" />
-        <img id="fr5" src="/pages/FR5.png" />
-        <img id="fr6" src="/pages/FR6.png" />
-        <img id="fr7" src="/pages/FR7.png" />
-        <img id="fr8" src="/pages/FR8.png" />
-        <img id="fr9" src="/pages/FR9.png" />
-        <img id="fr10" src="/pages/FR10.png" />
-        <img id="fr11" src="/pages/FR11.png" />
-        <img id="fr12" src="/pages/FR12.png" />
-        <img id="fr13" src="/pages/FR13.png" />
+    > -->
+    <a-scene>
+      <a-assets timeout="10000">
+        <img id="fr1" src="./pages/FR1.png" />
+        <img id="fr2" src="./pages/FR2.png" />
+        <img id="fr3" src="./pages/FR3.png" />
+        <img id="fr4" src="./pages/FR4.png" />
+        <img id="fr5" src="./pages/FR5.png" />
+        <img id="fr6" src="./pages/FR6.png" />
+        <img id="fr7" src="./pages/FR7.png" />
+        <img id="fr8" src="./pages/FR8.png" />
+        <img id="fr9" src="./pages/FR9.png" />
+        <img id="fr10" src="./pages/FR9.1.png" />
+        <img id="fr11" src="./pages/FR9.2.png" />
+        <img id="fr12" src="./pages/FR9.3.png" />
+        <img id="fr13" src="./pages/FR10.png" />
+        <img id="fr14" src="./pages/FR11.png" />
+        <img id="fr15" src="./pages/FR12.png" />
+        <img id="fr16" src="./pages/FR13.png" />
+        <img id="fr17" src="./pages/FR14.png" />
+        <img id="fr18" src="./pages/FR15.png" />
+        <img id="fr19" src="./pages/FR16.png" />
+        <img id="fr20" src="./pages/FR17.png" />
+        <img id="laban_ready" src="./assets/laban_ready1.gif" />
       </a-assets>
 
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <!-- <a-camera position="0 0 0" look-controls="enabled: false"></a-camera> -->
+      <a-camera
+        position="0 1.5 0"
+        look-controls="enabled: false"
+        cursor="fuse: false; rayOrigin: mouse;"
+        raycaster="far: ${customFields.libVersion}; objects: .clickable"
+      ></a-camera>
 
-      <a-entity id="container" mindar-image-target="targetIndex: 0">
+      <!-- <a-entity id="root" mindar-image-target="targetIndex: 0"> -->
+      <a-entity id="root" position="0 1.5 -2">
+        <a-entity id="container"></a-entity>
         <!-- <a-plane
           id="p1"
           src="#fr1"
@@ -40,26 +58,55 @@
           rotation="0 0 0"
           material="transparent: true"
         ></a-plane> -->
+        <a-entity
+          id="laban-button"
+          class="clickable"
+          position="0 -0.95 0.05"
+          geometry="primitive:plane;width:1.1;height:1.1;"
+          material="shader:gif;src:#laban_ready; transparent: true"
+          class="clickable"
+        ></a-entity>
       </a-entity>
+      <a-sky color="#000"></a-sky>
     </a-scene>
   </body>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const sceneEl = document.querySelector("a-scene");
+      let arSystem;
+      sceneEl.addEventListener("loaded", function () {
+        arSystem = sceneEl.systems["mindar-image-system"];
+      });
+      const labanButton = document.querySelector("#laban-button");
+      labanButton.addEventListener("click", () => {
+        alert("why");
+      });
+    });
+
     var ctr = 1;
     const p = document.getElementById("plane");
 
-    document.addEventListener("click", (e) => {
-      document.getElementById("p" + ctr).setAttribute("width", "0");
-      document.getElementById("p" + (ctr + 1)).setAttribute("width", "2");
-      ctr++;
-      if (ctr >= 13) {
-        ctr = 1;
-      }
-    });
+    function test() {
+      alert("why");
+    }
+
+    // document.addEventListener("click", (e) => {
+    //   if (ctr === 20) {
+    //     document.getElementById("p20").setAttribute("width", "0");
+    //     document.getElementById("p1").setAttribute("width", "2");
+    //     ctr = 1;
+    //     return;
+    //   }
+
+    //   document.getElementById("p" + ctr).setAttribute("width", "0");
+    //   document.getElementById("p" + (ctr + 1)).setAttribute("width", "2");
+    //   ctr++;
+    // });
 
     function init() {
       const container = document.getElementById("container");
-      for (let i = 1; i <= 13; i++) {
+      for (let i = 1; i <= 20; i++) {
         const page = document.createElement("a-plane");
         page.setAttribute("id", "p" + i);
         page.setAttribute("src", "#fr" + i);
@@ -71,6 +118,22 @@
         page.setAttribute("material", "transparent: true");
         container.appendChild(page);
       }
+
+      // setTimeout(() => {
+      //   alert("woah");
+      //   const root = document.getElementById("root");
+      //   const button1 = document.createElement("a-entity");
+      //   button1.setAttribute(
+      //     "geometry",
+      //     "primitive:plane;width:1.1;height:1.1;"
+      //   );
+      //   button1.setAttribute("position", "0 -0.98 0.05");
+      //   button1.setAttribute(
+      //     "material",
+      //     "shader:gif;src:url(assets/LABAN%20READY_V1.gif); color:red; transparent: true"
+      //   );
+      //   root.appendChild(button1);
+      // }, 3000);
     }
 
     init();
