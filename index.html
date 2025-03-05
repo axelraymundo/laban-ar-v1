@@ -39,9 +39,10 @@
         <img id="lr_off" src="./assets/lr_off.gif" />
         <img id="zinc_off" src="./assets/zinc_off.gif" />
         <img id="lactose_off" src="./assets/lactose_off.gif" />
-        <img id="lr_on" src="./assets/lr_on.gif" />
-        <img id="zinc_on" src="./assets/zinc_on.gif" />
-        <img id="lactose_on" src="./assets/lactose_on.gif" />
+        <img id="lr_on" src="./assets/lr_on1.gif" />
+        <img id="zinc_on" src="./assets/zinc_on1.gif" />
+        <img id="lactose_on" src="./assets/lactose_on1.gif" />
+        <img id="back-button" src="./assets/back_button.png" />
       </a-assets>
 
       <!-- <a-camera position="0 0 0" look-controls="enabled: false"></a-camera> -->
@@ -94,25 +95,41 @@
         <a-entity
           id="laban-button"
           class="clickable"
-          position="0 -0.95 0.01"
+          position="0.01 -0.965 0.01"
           geometry="primitive:plane;width:1.1;height:1.1;"
           material="shader:gif;src:#laban_ready; transparent: true"
           class="clickable"
         ></a-entity>
+
+        <a-plane
+          id="back"
+          src="#back-button"
+          position="0.01 -0.74 0.3"
+          height="0.26"
+          width="0.6"
+          rotation="0 0 0"
+          material="transparent: true"
+          class="clickable"
+        ></a-plane>
       </a-entity>
       <a-sky color="#000"></a-sky>
     </a-scene>
   </body>
 
   <script>
-    var ctr = 4;
+    var ctr = 1;
+    var lr = false;
+    var zinc = false;
+    var lactose = false;
 
     document.addEventListener("DOMContentLoaded", function () {
       const sceneEl = document.querySelector("a-scene");
       let arSystem;
+
+      init();
+
       sceneEl.addEventListener("loaded", function () {
         arSystem = sceneEl.systems["mindar-image-system"];
-        init();
       });
       //laban
       document.querySelector("#laban-button").addEventListener("click", () => {
@@ -120,40 +137,158 @@
       });
 
       //off
-      document.querySelector("#lr-off").addEventListener("click", () => {
-        console.log("clicked:, lr-off");
+      document.querySelector("#lr-off").addEventListener("click", (e) => {
+        console.log("clicked:, lr-off", lr);
+        if (!lr) {
+          e.target.setAttribute(
+            "material",
+            "shader:gif;src:#lr_on; transparent: true"
+          );
+          lr = true;
+
+          if (lr && zinc && lactose) {
+            document
+              .querySelector("#laban-button")
+              .setAttribute("position", "0.01 -0.965 0.01");
+          }
+        } else if (ctr === 9) {
+          document.querySelector("#page4").setAttribute("position", "0 0 100");
+          document
+            .querySelector("#laban-button")
+            .setAttribute("position", "0.01 -0.965 100");
+          ctr = 9;
+          onClick();
+          document.querySelector("#back").setAttribute("width", "0.6");
+        }
       });
-      document.querySelector("#zinc-off").addEventListener("click", () => {
-        console.log("clicked:, zinc-off");
+      document.querySelector("#zinc-off").addEventListener("click", (e) => {
+        console.log("clicked:, zinc-off", zinc);
+        if (!zinc) {
+          e.target.setAttribute(
+            "material",
+            "shader:gif;src:#zinc_on; transparent: true"
+          );
+          zinc = true;
+
+          if (lr && zinc && lactose) {
+            document
+              .querySelector("#laban-button")
+              .setAttribute("position", "0.01 -0.965 0.01");
+          }
+        } else if (ctr === 9) {
+          document.querySelector("#page4").setAttribute("position", "0 0 100");
+          document
+            .querySelector("#laban-button")
+            .setAttribute("position", "0.01 -0.965 100");
+          ctr = 10;
+          onClick();
+          document.querySelector("#back").setAttribute("width", "0.6");
+        }
       });
-      document.querySelector("#lactose-off").addEventListener("click", () => {
-        console.log("clicked:, lactose-off");
+      document.querySelector("#lactose-off").addEventListener("click", (e) => {
+        console.log("clicked:, lactose-off", lactose);
+        if (!lactose) {
+          e.target.setAttribute(
+            "material",
+            "shader:gif;src:#lactose_on; transparent: true"
+          );
+          lactose = true;
+
+          if (lr && zinc && lactose) {
+            document
+              .querySelector("#laban-button")
+              .setAttribute("position", "0.01 -0.965 0.01");
+          }
+        } else if (ctr === 9) {
+          document.querySelector("#page4").setAttribute("position", "0 0 100");
+          document
+            .querySelector("#laban-button")
+            .setAttribute("position", "0.01 -0.965 100");
+          ctr = 11;
+          onClick();
+          document.querySelector("#back").setAttribute("width", "0.6");
+        }
+      });
+
+      document.querySelector("#back").addEventListener("click", () => {
+        switch (ctr) {
+          case 10:
+          case 11:
+          case 12:
+            ctr = 8;
+            onClick();
+            break;
+        }
+        console.log("Back", ctr);
+
+        if (lr && zinc && lactose) {
+          document
+            .querySelector("#laban-button")
+            .setAttribute("position", "0.01 -0.965 0.01");
+        }
+
+        document.querySelector("#back").setAttribute("width", "0");
       });
     });
 
     function onClick() {
+      console.log("CTR", ctr);
+
       if (ctr === 20) {
-        document.getElementById("p20").setAttribute("width", "0");
-        document.getElementById("p1").setAttribute("width", "2");
-        ctr = 1;
+        // document.getElementById("p20").setAttribute("width", "0");
+        // document.getElementById("p1").setAttribute("width", "2");
+        // ctr = 1;
+        window.location.reload();
         return;
       }
 
+      if (ctr === 4) {
+        ctr = 6;
+      }
+
+      if (ctr === 7) {
+        document.querySelector("#page4").setAttribute("position", "0 0.25 0");
+      }
+
+      if (ctr === 8) {
+        document.querySelector("#page4").setAttribute("position", "0 0.31 0");
+      }
+
+      if (ctr === 9) {
+        ctr = 12;
+        document.querySelector("#page4").setAttribute("position", "0 0.31 100");
+      }
+
+      if (ctr === 16) {
+        document
+          .querySelector("#laban-button")
+          .setAttribute("visible", "false");
+      }
+
+      //hide all
       document.getElementById("p" + ctr).setAttribute("width", "0");
+      for (let i = 1; i <= 20; i++) {
+        document.getElementById("p" + i).setAttribute("width", "0");
+      }
+
+      //show
       document.getElementById("p" + (ctr + 1)).setAttribute("width", "2");
+
+      if (ctr === 19) {
+        document.getElementById("p" + (ctr + 1)).setAttribute("width", "1.3");
+        document.getElementById("p" + (ctr + 1)).setAttribute("height", "2.2");
+      }
+
       ctr++;
 
       if (ctr === 4) {
         //hide laban
         document
           .querySelector("#laban-button")
-          .setAttribute("position", "0 -0.95 100");
+          .setAttribute("position", "0.01 -0.965 100");
+        document.querySelector("#page4").setAttribute("position", "0 0 0");
       }
     }
-
-    // document.addEventListener("click", (e) => {
-
-    // });
 
     function init() {
       const container = document.getElementById("container");
@@ -169,6 +304,13 @@
         container.appendChild(page);
       }
       document.getElementById("p" + ctr).setAttribute("width", "2");
+
+      //hide elements
+      // document
+      //   .querySelector("#laban-button")
+      //   .setAttribute("position", "0 0 100");
+      document.querySelector("#back").setAttribute("width", "0");
+      document.querySelector("#page4").setAttribute("position", "0 0 100");
     }
   </script>
 </html>
