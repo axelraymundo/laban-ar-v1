@@ -8,12 +8,12 @@
     <script src="js/mindar-image-aframe.prod.js"></script>
   </head>
   <body>
-    <a-scene
+    <!-- <a-scene
       mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.001; filterBeta: 1000;"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-    >
-      <!-- <a-scene> -->
+    > -->
+    <a-scene>
       <a-assets timeout="20000">
         <img id="laban_ready" src="./assets/laban_ready3.gif" />
         <img id="fr1" src="./pages/frame_1.png" />
@@ -44,18 +44,22 @@
         <img id="zinc_on" src="./assets/zinc_on1.gif" />
         <img id="lactose_on" src="./assets/lactose_on1.gif" />
         <img id="back-button" src="./assets/back_button.png" />
+
+        <!-- <img id="lr_on1" src="./assets/lr_on2.png" /> -->
+        <!-- <img id="zinc_on1" src="./assets/zinc_on2.png" /> -->
+        <!-- <img id="lactose_on1" src="./assets/lactose_on2.png" /> -->
       </a-assets>
 
       <!-- <a-camera position="0 0 0" look-controls="enabled: false"></a-camera> -->
       <a-camera
-        position="0 0 0"
+        position="0 0 2"
         look-controls="enabled: false"
         cursor="fuse: false; rayOrigin: mouse;"
         raycaster="far: ${customFields.libVersion}; objects: .clickable"
       ></a-camera>
 
-      <a-entity id="root" mindar-image-target="targetIndex: 0">
-        <!-- <a-entity id="root"> -->
+      <!-- <a-entity id="root" mindar-image-target="targetIndex: 0"> -->
+      <a-entity id="root">
         <a-entity id="container"></a-entity>
         <!-- <a-plane
           id="p1"
@@ -113,20 +117,22 @@
           class="clickable"
         ></a-plane>
 
-        <a-sphere
+        <a-plane
           id="ball1"
-          position="0 0 0.1"
-          radius="0.25"
-          color="#EF2D5E"
+          src="#lr_on"
+          height="0.64"
+          width="0.64"
+          position="-0.22 0.04 0.1"
           class="clickable"
-        ></a-sphere>
+          material="transparent: true"
+        ></a-plane>
       </a-entity>
-      <!-- <a-sky color="#000"></a-sky> -->
+      <a-sky color="#000"></a-sky>
     </a-scene>
   </body>
 
   <script>
-    var ctr = 13;
+    var ctr = 1;
     var lr = false;
     var zinc = false;
     var lactose = false;
@@ -230,6 +236,24 @@
             ctr = 8;
             onClick();
             break;
+          case 14:
+          case 15:
+            ctr = 12;
+
+            document
+              .querySelector("#ball1")
+              .setAttribute("position", `-0.22 0.04 0.1`);
+
+            onClick();
+
+            document.querySelector("#back").setAttribute("width", "0");
+
+            document
+              .querySelector("#laban-button")
+              .setAttribute("position", "0.01 -1.06 0.1");
+
+            return;
+            break;
         }
         console.log("Back", ctr);
 
@@ -243,13 +267,17 @@
       });
 
       document.querySelector("#ball1").addEventListener("mousedown", (e) => {
-        console.log(e);
+        // console.log(e);
         // console.log(e.detail.mouseEvent.pageX, e.detail.mouseEvent.pageY);
-        // startX = e.detail.mouseEvent.pageX;
-        // startY = e.detail.mouseEvent.pageY;
 
-        startX = e.detail.touchEvent.changedTouches[0].pageX;
-        startY = e.detail.touchEvent.changedTouches[0].pageY;
+        if (e.detail.mouseEvent) {
+          startX = e.detail.mouseEvent.pageX;
+          startY = e.detail.mouseEvent.pageY;
+        } else {
+          startX = e.detail.touchEvent.changedTouches[0].pageX;
+          startY = e.detail.touchEvent.changedTouches[0].pageY;
+        }
+
         dragging = true;
       });
 
@@ -261,14 +289,50 @@
         if (dragging) {
           // console.log(`mouse position: ${event.x}:${event.y}`);
 
-          var newX = event.x - startX;
-          var newY = event.y - startY;
+          var threshold = 300;
+
+          var newX = (event.x - startX) / threshold - 0.22;
+          var newY = (event.y - startY) / threshold;
 
           console.log(newX, newY);
 
           document
             .querySelector("#ball1")
-            .setAttribute("position", `${newX / 400} ${-newY / 400} 0.1`);
+            .setAttribute("position", `${newX} ${-newY} 0.1`);
+
+          if (newX >= 0.2 && newY <= -0.17) {
+            console.log("trigger lactose");
+            dragging = false;
+
+            document
+              .querySelector("#ball1")
+              .setAttribute("position", `-0.22 0.04 100`);
+
+            document
+              .querySelector("#laban-button")
+              .setAttribute("position", "0.01 -1.06 100");
+
+            ctr = 13;
+            onClick();
+
+            document.querySelector("#back").setAttribute("width", "0.6");
+          } else if (newX >= 0.2 && newY >= 0.16) {
+            console.log("trigger zinc");
+            dragging = false;
+
+            document
+              .querySelector("#ball1")
+              .setAttribute("position", `-0.22 0.04 100`);
+
+            document
+              .querySelector("#laban-button")
+              .setAttribute("position", "0.01 -1.06 100");
+
+            ctr = 14;
+            onClick();
+
+            document.querySelector("#back").setAttribute("width", "0.6");
+          }
         }
       };
 
@@ -303,8 +367,24 @@
         document.querySelector("#page4").setAttribute("position", "0 0.31 100");
       }
 
-      if (ctr === 13) {
-        //reveal the items
+      if (ctr === 12) {
+        document
+          .querySelector("#laban-button")
+          .setAttribute("position", "0.01 -1.06 100");
+      }
+
+      if (ctr == 12 && laban) {
+        document
+          .querySelector("#ball1")
+          .setAttribute("position", `-0.22 0.04 0.1`);
+      }
+
+      if (ctr === 13 && laban) {
+        ctr = 15;
+
+        document
+          .querySelector("#ball1")
+          .setAttribute("position", `-0.22 0.04 100`);
       }
 
       if (ctr === 16) {
@@ -359,6 +439,9 @@
       //   .setAttribute("position", "0 0 100");
       document.querySelector("#back").setAttribute("width", "0");
       document.querySelector("#page4").setAttribute("position", "0 0 100");
+      document
+        .querySelector("#ball1")
+        .setAttribute("position", `-0.22 0.04 100`);
     }
   </script>
 </html>
