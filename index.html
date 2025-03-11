@@ -14,31 +14,32 @@
       device-orientation-permission-ui="enabled: false"
     >
       <!-- <a-scene> -->
-      <a-assets>
-        <img id="fr1" src="./pages/FR1.png" />
-        <img id="fr2" src="./pages/FR2.png" />
+      <a-assets timeout="20000">
+        <img id="laban_ready" src="./assets/laban_ready3.gif" />
+        <img id="fr1" src="./pages/frame_1.png" />
+        <img id="fr2" src="./pages/frame_2.png" />
         <img id="fr3" src="./pages/FR3.png" />
         <img id="fr4" src="./pages/FR4.png" />
         <img id="fr5" src="./pages/FR5.png" />
         <img id="fr6" src="./pages/FR6.png" />
-        <img id="fr7" src="./pages/FR7.png" />
-        <img id="fr8" src="./pages/FR8.png" />
-        <img id="fr9" src="./pages/FR9.png" />
-        <img id="fr10" src="./pages/FR9.1.png" />
-        <img id="fr11" src="./pages/FR9.2.png" />
-        <img id="fr12" src="./pages/FR9.3.png" />
-        <img id="fr13" src="./pages/FR10.png" />
+        <img id="fr7" src="./pages/frame_7.png" />
+        <img id="fr8" src="./pages/frame_8.png" />
+        <img id="fr9" src="./pages/frame_9.png" />
+        <img id="fr10" src="./pages/frame_9_1.png" />
+        <img id="fr11" src="./pages/frame_9_2.png" />
+        <img id="fr12" src="./pages/frame_9_3.png" />
+        <img id="fr13" src="./pages/frame_10.png" />
         <img id="fr14" src="./pages/FR11.png" />
         <img id="fr15" src="./pages/FR12.png" />
-        <img id="fr16" src="./pages/FR13.png" />
+        <img id="fr16" src="./pages/frame_13.png" />
         <img id="fr17" src="./pages/FR14.png" />
         <img id="fr18" src="./pages/FR15.png" />
         <img id="fr19" src="./pages/FR16.png" />
         <img id="fr20" src="./pages/FR17.png" />
-        <img id="laban_ready" src="./assets/laban_ready2.gif" />
-        <img id="lr_off" src="./assets/lr_off.gif" />
-        <img id="zinc_off" src="./assets/zinc_off.gif" />
-        <img id="lactose_off" src="./assets/lactose_off.gif" />
+
+        <img id="lr_off" src="./assets/lr_off1.gif" />
+        <img id="zinc_off" src="./assets/zinc_off1.gif" />
+        <img id="lactose_off" src="./assets/lactose_off1.gif" />
         <img id="lr_on" src="./assets/lr_on1.gif" />
         <img id="zinc_on" src="./assets/zinc_on1.gif" />
         <img id="lactose_on" src="./assets/lactose_on1.gif" />
@@ -104,23 +105,34 @@
         <a-plane
           id="back"
           src="#back-button"
-          position="0.01 -0.74 0.3"
+          position="0.01 -0.74 0.1"
           height="0.26"
           width="0.6"
           rotation="0 0 0"
           material="transparent: true"
           class="clickable"
         ></a-plane>
+
+        <a-sphere
+          id="ball1"
+          position="0 0 0.1"
+          radius="0.25"
+          color="#EF2D5E"
+          class="clickable"
+        ></a-sphere>
       </a-entity>
       <!-- <a-sky color="#000"></a-sky> -->
     </a-scene>
   </body>
 
   <script>
-    var ctr = 1;
+    var ctr = 13;
     var lr = false;
     var zinc = false;
     var lactose = false;
+    var dragging = false;
+    var startX = 0;
+    var startY = 0;
 
     document.addEventListener("DOMContentLoaded", function () {
       const sceneEl = document.querySelector("a-scene");
@@ -229,6 +241,38 @@
 
         document.querySelector("#back").setAttribute("width", "0");
       });
+
+      document.querySelector("#ball1").addEventListener("mousedown", (e) => {
+        console.log(e);
+        // console.log(e.detail.mouseEvent.pageX, e.detail.mouseEvent.pageY);
+        // startX = e.detail.mouseEvent.pageX;
+        // startY = e.detail.mouseEvent.pageY;
+
+        startX = e.detail.touchEvent.changedTouches[0].pageX;
+        startY = e.detail.touchEvent.changedTouches[0].pageY;
+        dragging = true;
+      });
+
+      document.addEventListener("mouseup", (e) => {
+        dragging = false;
+      });
+
+      let handleMousemove = (event) => {
+        if (dragging) {
+          // console.log(`mouse position: ${event.x}:${event.y}`);
+
+          var newX = event.x - startX;
+          var newY = event.y - startY;
+
+          console.log(newX, newY);
+
+          document
+            .querySelector("#ball1")
+            .setAttribute("position", `${newX / 400} ${-newY / 400} 0.1`);
+        }
+      };
+
+      document.addEventListener("pointermove", handleMousemove);
     });
 
     function onClick(laban = false) {
@@ -259,6 +303,10 @@
         document.querySelector("#page4").setAttribute("position", "0 0.31 100");
       }
 
+      if (ctr === 13) {
+        //reveal the items
+      }
+
       if (ctr === 16) {
         document
           .querySelector("#laban-button")
@@ -275,8 +323,8 @@
       document.getElementById("p" + (ctr + 1)).setAttribute("width", "2");
 
       if (ctr === 19) {
-        document.getElementById("p" + (ctr + 1)).setAttribute("width", "1.3");
-        document.getElementById("p" + (ctr + 1)).setAttribute("height", "2.2");
+        document.getElementById("p" + (ctr + 1)).setAttribute("width", "1.1");
+        document.getElementById("p" + (ctr + 1)).setAttribute("height", "1.3");
       }
 
       ctr++;
