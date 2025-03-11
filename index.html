@@ -8,12 +8,12 @@
     <script src="js/mindar-image-aframe.prod.js"></script>
   </head>
   <body>
-    <!-- <a-scene
+    <a-scene
       mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.001; filterBeta: 1000;"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-    > -->
-    <a-scene>
+    >
+      <!-- <a-scene> -->
       <a-assets timeout="20000">
         <img id="laban_ready" src="./assets/laban_ready3.gif" />
         <img id="fr1" src="./pages/frame_1.png" />
@@ -52,14 +52,14 @@
 
       <!-- <a-camera position="0 0 0" look-controls="enabled: false"></a-camera> -->
       <a-camera
-        position="0 0 2"
+        position="0 0 0"
         look-controls="enabled: false"
         cursor="fuse: false; rayOrigin: mouse;"
         raycaster="far: ${customFields.libVersion}; objects: .clickable"
       ></a-camera>
 
-      <!-- <a-entity id="root" mindar-image-target="targetIndex: 0"> -->
-      <a-entity id="root">
+      <a-entity id="root" mindar-image-target="targetIndex: 0">
+        <!-- <a-entity id="root"> -->
         <a-entity id="container"></a-entity>
         <!-- <a-plane
           id="p1"
@@ -127,7 +127,7 @@
           material="transparent: true"
         ></a-plane>
       </a-entity>
-      <a-sky color="#000"></a-sky>
+      <!-- <a-sky color="#000"></a-sky> -->
     </a-scene>
   </body>
 
