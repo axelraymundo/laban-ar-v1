@@ -6,10 +6,32 @@
     <!-- <script src="js/aframe.min.js"></script> -->
     <script src="js/aframe-gif-shader.js"></script>
     <script src="js/mindar-image-aframe.prod.js"></script>
+
+    <script src="https://cdn.rawgit.com/alexgibson/shake.js/master/shake.js"></script>
+
+    <style>
+      #btn_reqPermission {
+        display: none;
+        position: absolute;
+        z-index: 99;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 32px;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
+        padding: 0px 0px;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
   </head>
   <body>
+    <div>Version 12</div>
+    <div id="btn_reqPermission">START</div>
+    <!-- <div id="output_message"></div> -->
     <a-scene
-      mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.001; filterBeta: 1000;"
+      mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
     >
@@ -17,7 +39,7 @@
       <a-assets timeout="20000">
         <img id="laban_ready" src="./assets/laban_ready3.gif" />
         <img id="fr1" src="./pages/frame_1.png" />
-        <img id="fr2" src="./pages/frame_2.png" />
+        <img id="fr2" src="./pages/frame_2a.png" />
         <img id="fr3" src="./pages/FR3.png" />
         <img id="fr4" src="./pages/FR4.png" />
         <img id="fr5" src="./pages/FR5.png" />
@@ -37,12 +59,20 @@
         <img id="fr19" src="./pages/FR16.png" />
         <img id="fr20" src="./pages/FR17.png" />
 
-        <img id="lr_off" src="./assets/lr_off1.gif" />
+        <!-- <img id="lr_off" src="./assets/lr_off1.gif" />
         <img id="zinc_off" src="./assets/zinc_off1.gif" />
         <img id="lactose_off" src="./assets/lactose_off1.gif" />
         <img id="lr_on" src="./assets/lr_on1.gif" />
         <img id="zinc_on" src="./assets/zinc_on1.gif" />
-        <img id="lactose_on" src="./assets/lactose_on1.gif" />
+        <img id="lactose_on" src="./assets/lactose_on1.gif" /> -->
+
+        <img id="lr_off" src="./assets/lr_offx.png" />
+        <img id="zinc_off" src="./assets/zinc_offx.png" />
+        <img id="lactose_off" src="./assets/lactose_offx.png" />
+        <img id="lr_on" src="./assets/lr_onx.png" />
+        <img id="zinc_on" src="./assets/zinc_onx.png" />
+        <img id="lactose_on" src="./assets/lactose_onx.png" />
+
         <img id="back-button" src="./assets/back_button.png" />
 
         <!-- <img id="lr_on1" src="./assets/lr_on2.png" /> -->
@@ -59,9 +89,10 @@
       ></a-camera>
 
       <a-entity id="root" mindar-image-target="targetIndex: 0">
-        <!-- <a-entity id="root"> -->
-        <a-entity id="container"></a-entity>
-        <!-- <a-plane
+        <a-entity position="0 -0.05 0">
+          <!-- <a-entity id="root"> -->
+          <a-entity id="container"></a-entity>
+          <!-- <a-plane
           id="p1"
           src="#fr1"
           position="0 0 0"
@@ -70,62 +101,63 @@
           rotation="0 0 0"
           material="transparent: true"
         ></a-plane> -->
-        <a-entity id="page4">
+          <a-entity id="page4">
+            <a-entity
+              id="lr-off"
+              class="clickable"
+              position="0.28 0.16 0.01"
+              geometry="primitive:plane;width:0.5;height:0.5;"
+              material="shader:gif;src:#lr_off; transparent: true"
+              class="clickable"
+            ></a-entity>
+            <a-entity
+              id="zinc-off"
+              class="clickable"
+              position="0.28 -0.15 0.02"
+              geometry="primitive:plane;width:0.5;height:0.5;"
+              material="shader:gif;src:#zinc_off; transparent: true"
+              class="clickable"
+            ></a-entity>
+            <a-entity
+              id="lactose-off"
+              class="clickable"
+              position="0.28 -0.46 0.03"
+              geometry="primitive:plane;width:0.5;height:0.5;"
+              material="shader:gif;src:#lactose_off; transparent: true"
+              class="clickable"
+            ></a-entity>
+          </a-entity>
+
           <a-entity
-            id="lr-off"
+            id="laban-button"
             class="clickable"
-            position="0.28 0.16 0.01"
-            geometry="primitive:plane;width:0.5;height:0.5;"
-            material="shader:gif;src:#lr_off; transparent: true"
+            position="0.01 -0.965 0.01"
+            geometry="primitive:plane;width:1.1;height:1.1;"
+            material="shader:gif;src:#laban_ready; transparent: true"
             class="clickable"
           ></a-entity>
-          <a-entity
-            id="zinc-off"
+
+          <a-plane
+            id="back"
+            src="#back-button"
+            position="0.01 -0.74 0.1"
+            height="0.26"
+            width="0.6"
+            rotation="0 0 0"
+            material="transparent: true"
             class="clickable"
-            position="0.28 -0.15 0.02"
-            geometry="primitive:plane;width:0.5;height:0.5;"
-            material="shader:gif;src:#zinc_off; transparent: true"
+          ></a-plane>
+
+          <a-plane
+            id="ball1"
+            src="#lr_on"
+            height="0.64"
+            width="0.64"
+            position="-0.22 0.04 0.1"
             class="clickable"
-          ></a-entity>
-          <a-entity
-            id="lactose-off"
-            class="clickable"
-            position="0.28 -0.46 0.03"
-            geometry="primitive:plane;width:0.5;height:0.5;"
-            material="shader:gif;src:#lactose_off; transparent: true"
-            class="clickable"
-          ></a-entity>
+            material="transparent: true"
+          ></a-plane>
         </a-entity>
-
-        <a-entity
-          id="laban-button"
-          class="clickable"
-          position="0.01 -0.965 0.01"
-          geometry="primitive:plane;width:1.1;height:1.1;"
-          material="shader:gif;src:#laban_ready; transparent: true"
-          class="clickable"
-        ></a-entity>
-
-        <a-plane
-          id="back"
-          src="#back-button"
-          position="0.01 -0.74 0.1"
-          height="0.26"
-          width="0.6"
-          rotation="0 0 0"
-          material="transparent: true"
-          class="clickable"
-        ></a-plane>
-
-        <a-plane
-          id="ball1"
-          src="#lr_on"
-          height="0.64"
-          width="0.64"
-          position="-0.22 0.04 0.1"
-          class="clickable"
-          material="transparent: true"
-        ></a-plane>
       </a-entity>
       <!-- <a-sky color="#000"></a-sky> -->
     </a-scene>
@@ -393,6 +425,13 @@
           .setAttribute("visible", "false");
       }
 
+      if (ctr === 18) {
+        document
+          .querySelector("#laban-button")
+          .setAttribute("visible", "false");
+        // .setAttribute("position", "0.01 -1.06 100");
+      }
+
       //hide all
       document.getElementById("p" + ctr).setAttribute("width", "0");
       for (let i = 1; i <= 20; i++) {
@@ -404,7 +443,7 @@
 
       if (ctr === 19) {
         document.getElementById("p" + (ctr + 1)).setAttribute("width", "1.1");
-        document.getElementById("p" + (ctr + 1)).setAttribute("height", "1.3");
+        document.getElementById("p" + (ctr + 1)).setAttribute("height", "1.4");
       }
 
       ctr++;
@@ -416,6 +455,74 @@
           .setAttribute("position", "0.01 -0.965 100");
         document.querySelector("#page4").setAttribute("position", "0 0 0");
       }
+    }
+
+    // PERMISSION BUTTON
+    var btn_reqPermission = document.getElementById("btn_reqPermission");
+    btn_reqPermission.addEventListener("click", () => {
+      this.checkMotionPermission();
+    });
+
+    // ON PAGE LOAD
+    this.checkMotionPermission();
+
+    // FUNCTIONS
+    async function checkMotionPermission() {
+      // Any browser using requestPermission API
+      if (typeof DeviceOrientationEvent.requestPermission === "function") {
+        // If previously granted, user will see no prompts and listeners get setup right away.
+        // If error, we show special UI to the user.
+        // FYI, "requestPermission" acts more like "check permission" on the device.
+        await DeviceOrientationEvent.requestPermission()
+          .then((permissionState) => {
+            if (permissionState == "granted") {
+              // Hide special UI; no longer needed
+              btn_reqPermission.style.display = "none";
+              this.setMotionListeners();
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting sensor permission: %O", error);
+            // Show special UI to user, suggesting they should allow motion sensors. The tap-or-click on the button will invoke the permission dialog.
+            btn_reqPermission.style.display = "flex";
+          });
+
+        // All other browsers
+      } else {
+        this.setMotionListeners();
+      }
+    }
+
+    async function setMotionListeners() {
+      // ORIENTATION LISTENER
+      await window.addEventListener("orientation", (event) => {
+        console.log("Device orientation event: %O", event);
+      });
+
+      // MOTION LISTENER
+      await window.addEventListener("devicemotion", (event) => {
+        console.log("Device motion event: %O", event);
+
+        // SHAKE EVENT
+        // Using rotationRate, which essentially is velocity,
+        // we check each axis (alpha, beta, gamma) whether they cross a threshold (e.g. 256).
+        // Lower = more sensitive, higher = less sensitive. 256 works nice, imho.
+        if (
+          event.rotationRate.alpha > 256 ||
+          event.rotationRate.beta > 256 ||
+          event.rotationRate.gamma > 256
+        ) {
+          // this.output_message.innerHTML = "SHAKEN!";
+
+          if (ctr === 19) {
+            onClick();
+          }
+
+          setTimeout(() => {
+            this.message.innerHTML = null;
+          }, "2000");
+        }
+      });
     }
 
     function init() {
