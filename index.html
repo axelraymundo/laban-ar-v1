@@ -128,7 +128,7 @@
           </a-entity> -->
 
           <a-entity id="page4">
-            <a-plane
+            <!-- <a-plane
               id="lr-off"
               src="#lr_off"
               position="0.01 -0.74 0.1"
@@ -138,6 +138,17 @@
               material="transparent:true; shader:standard; color:#4b8bc8; emissive:#4b8bc8; emissiveIntensity:1"
               animation="property: material.emissiveIntensity; from:0; to:10; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
               animation="property: material.color; from:red; to:blue; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              class="clickable"
+            ></a-plane> -->
+            <a-plane
+              id="lr-off"
+              src="#lr_off"
+              position="0.01 -0.74 0.1"
+              height="1"
+              width="1"
+              rotation="0 0 0"
+              material="transparent:true; shader:standard; color:#000; emissive:#4b8bc8; emissiveIntensity:1"
+              animation="property: material.emissiveIntensity; from:1; to:3; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
               class="clickable"
             ></a-plane>
           </a-entity>
@@ -204,10 +215,21 @@
       document.querySelector("#lr-off").addEventListener("click", (e) => {
         console.log("clicked:, lr-off", lr);
         if (!lr) {
+          // e.target.setAttribute(
+          //   "material",
+          //   "shader:gif;src:#lr_on; transparent: true"
+          // );
+
           e.target.setAttribute(
             "material",
-            "shader:gif;src:#lr_on; transparent: true"
+            "transparent:true; shader:standard; color:#fff; emissive:#181818; emissiveIntensity:1;"
           );
+
+          e.target.setAttribute(
+            "animation",
+            "property: material.emissiveIntensity; from:0; to:1; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+          );
+
           lr = true;
 
           if (lr && zinc && lactose) {
