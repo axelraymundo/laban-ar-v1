@@ -29,13 +29,12 @@
   <body>
     <div>Version 12</div>
     <div id="btn_reqPermission">START</div>
-    <!-- <div id="output_message"></div> -->
-    <a-scene
+    <!-- <a-scene
       mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-    >
-      <!-- <a-scene> -->
+    > -->
+    <a-scene>
       <a-assets timeout="20000">
         <img id="laban_ready" src="./assets/laban_ready3.gif" />
         <img id="fr1" src="./pages/frame_1.png" />
@@ -66,7 +65,7 @@
         <img id="zinc_on" src="./assets/zinc_on1.gif" />
         <img id="lactose_on" src="./assets/lactose_on1.gif" /> -->
 
-        <img id="lr_off" src="./assets/lr_offx.png" />
+        <img id="lr_off" src="./assets/lr_on2.png" />
         <img id="zinc_off" src="./assets/zinc_offx.png" />
         <img id="lactose_off" src="./assets/lactose_offx.png" />
         <img id="lr_on" src="./assets/lr_onx.png" />
@@ -82,15 +81,15 @@
 
       <!-- <a-camera position="0 0 0" look-controls="enabled: false"></a-camera> -->
       <a-camera
-        position="0 0 0"
+        position="0 0 2"
         look-controls="enabled: false"
         cursor="fuse: false; rayOrigin: mouse;"
         raycaster="far: ${customFields.libVersion}; objects: .clickable"
       ></a-camera>
 
-      <a-entity id="root" mindar-image-target="targetIndex: 0">
+      <!-- <a-entity id="root" mindar-image-target="targetIndex: 0"> -->
+      <a-entity id="root">
         <a-entity position="0 -0.05 0">
-          <!-- <a-entity id="root"> -->
           <a-entity id="container"></a-entity>
           <!-- <a-plane
           id="p1"
@@ -101,7 +100,7 @@
           rotation="0 0 0"
           material="transparent: true"
         ></a-plane> -->
-          <a-entity id="page4">
+          <!-- <a-entity id="page4">
             <a-entity
               id="lr-off"
               class="clickable"
@@ -126,6 +125,21 @@
               material="shader:gif;src:#lactose_off; transparent: true"
               class="clickable"
             ></a-entity>
+          </a-entity> -->
+
+          <a-entity id="page4">
+            <a-plane
+              id="lr-off"
+              src="#lr_off"
+              position="0.01 -0.74 0.1"
+              height="1"
+              width="1"
+              rotation="0 0 0"
+              material="transparent:true; shader:standard; color:#4b8bc8; emissive:#4b8bc8; emissiveIntensity:1"
+              animation="property: material.emissiveIntensity; from:0; to:10; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              animation="property: material.color; from:red; to:blue; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              class="clickable"
+            ></a-plane>
           </a-entity>
 
           <a-entity
@@ -159,12 +173,12 @@
           ></a-plane>
         </a-entity>
       </a-entity>
-      <!-- <a-sky color="#000"></a-sky> -->
+      <a-sky color="#000"></a-sky>
     </a-scene>
   </body>
 
   <script>
-    var ctr = 1;
+    var ctr = 3;
     var lr = false;
     var zinc = false;
     var lactose = false;
