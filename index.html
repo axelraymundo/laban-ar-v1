@@ -27,12 +27,12 @@
   <body>
     <!-- <div>Version 12</div> -->
     <div id="btn_reqPermission">START</div>
-    <a-scene
+    <!-- <a-scene
       mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.0001; filterBeta: 0.001"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
-    >
-      <!-- <a-scene> -->
+    > -->
+    <a-scene>
       <a-assets timeout="20000">
         <img id="laban_ready" src="./assets/laban_ready3.gif" />
         <img id="fr1" src="./pages/frame_1.png" />
@@ -72,6 +72,8 @@
 
         <img id="back-button" src="./assets/back_button.png" />
 
+        <img id="glow1" src="./assets/glow1.png" />
+
         <!-- <img id="lr_on1" src="./assets/lr_on2.png" /> -->
         <!-- <img id="zinc_on1" src="./assets/zinc_on2.png" /> -->
         <!-- <img id="lactose_on1" src="./assets/lactose_on2.png" /> -->
@@ -79,14 +81,14 @@
 
       <!-- <a-camera position="0 0 0" look-controls="enabled: false"></a-camera> -->
       <a-camera
-        position="0 0 0"
+        position="0 0 2"
         look-controls="enabled: false"
         cursor="fuse: false; rayOrigin: mouse;"
         raycaster="far: ${customFields.libVersion}; objects: .clickable"
       ></a-camera>
 
-      <a-entity id="root" mindar-image-target="targetIndex: 0">
-        <!-- <a-entity id="root"> -->
+      <!-- <a-entity id="root" mindar-image-target="targetIndex: 0"> -->
+      <a-entity id="root">
         <a-entity position="0 -0.05 0">
           <a-entity id="container"></a-entity>
           <!-- <a-plane
@@ -138,7 +140,7 @@
               animation="property: material.color; from:red; to:blue; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
               class="clickable"
             ></a-plane> -->
-            <a-plane
+            <!-- <a-plane
               id="lr-off"
               src="#lr_off"
               position="0.28 0.16 0.01"
@@ -164,6 +166,64 @@
               id="lactose-off"
               src="#lactose_off"
               position="0.28 -0.46 0.03"
+              height="0.5"
+              width="0.5"
+              rotation="0 0 0"
+              material="transparent:true; shader:standard; color:#000; emissive:#4b8bc8; emissiveIntensity:1"
+              animation="property: material.emissiveIntensity; from:1; to:3; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              class="clickable"
+            ></a-plane>
+          </a-entity> -->
+
+            <!-- animation="property: scale; from:1 1 1; to:5 5 5; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true" -->
+
+            <a-image
+              src="#glow1"
+              scale="0.3 0.3 0.3"
+              position="0.28 0.16 0.08"
+              material="transparent:true; shader:standard; color:#fca024; emissive:#fca024; emissiveIntensity:1"
+              animation="property: scale; from:0.3 0.3 0.3; to:0.8 0.8 0.8; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+            ></a-image>
+            <a-image
+              src="#glow1"
+              scale="0.3 0.3 0.3"
+              position="0.28 -0.15 0.08"
+              material="transparent:true; shader:standard; color:#fca024; emissive:#fca024; emissiveIntensity:1"
+              animation="property: scale; from:0.3 0.3 0.3; to:0.8 0.8 0.8; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+            ></a-image>
+            <a-image
+              src="#glow1"
+              scale="0.3 0.3 0.3"
+              position="0.28 -0.46 0.08"
+              material="transparent:true; shader:standard; color:#fca024; emissive:#fca024; emissiveIntensity:1"
+              animation="property: scale; from:0.3 0.3 0.3; to:0.8 0.8 0.8; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+            ></a-image>
+            <a-plane
+              id="lr-off"
+              src="#lr_on"
+              position="0.28 0.16 0.1"
+              height="0.5"
+              width="0.5"
+              rotation="0 0 0"
+              material="transparent:true; shader:standard; color:#000; emissive:#4b8bc8; emissiveIntensity:1"
+              animation="property: material.emissiveIntensity; from:1; to:3; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              class="clickable"
+            ></a-plane>
+            <a-plane
+              id="zinc-off"
+              src="#zinc_on"
+              position="0.28 -0.15 0.1"
+              height="0.5"
+              width="0.5"
+              rotation="0 0 0"
+              material="transparent:true; shader:standard; color:#000; emissive:#4b8bc8; emissiveIntensity:1"
+              animation="property: material.emissiveIntensity; from:1; to:3; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              class="clickable"
+            ></a-plane>
+            <a-plane
+              id="lactose-off"
+              src="#lactose_on"
+              position="0.28 -0.46 0.1"
               height="0.5"
               width="0.5"
               rotation="0 0 0"
@@ -224,7 +284,7 @@
           ></a-plane>
         </a-entity>
       </a-entity>
-      <!-- <a-sky color="#000"></a-sky> -->
+      <a-sky color="#000"></a-sky>
     </a-scene>
   </body>
 
@@ -351,7 +411,7 @@
           if (lr && zinc && lactose) {
             document
               .querySelector("#laban-button")
-              .setAttribute("position", "0.01 -0.965 0.01");
+              .setAttribute("position", "0.01 -0.965 0.09");
           }
         } else if (ctr === 9) {
           document.querySelector("#page4").setAttribute("position", "0 0 100");
