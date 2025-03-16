@@ -66,8 +66,8 @@
         <img id="lactose_on" src="./assets/lactose_on1.gif" /> -->
 
         <img id="lr_off" src="./assets/lr_on2.png" />
-        <img id="zinc_off" src="./assets/zinc_offx.png" />
-        <img id="lactose_off" src="./assets/lactose_offx.png" />
+        <img id="zinc_off" src="./assets/zinc_on2.png" />
+        <img id="lactose_off" src="./assets/lactose_on2.png" />
         <img id="lr_on" src="./assets/lr_onx.png" />
         <img id="zinc_on" src="./assets/zinc_onx.png" />
         <img id="lactose_on" src="./assets/lactose_onx.png" />
@@ -143,9 +143,31 @@
             <a-plane
               id="lr-off"
               src="#lr_off"
-              position="0.01 -0.74 0.1"
-              height="1"
-              width="1"
+              position="0.28 0.16 0.01"
+              height="0.5"
+              width="0.5"
+              rotation="0 0 0"
+              material="transparent:true; shader:standard; color:#000; emissive:#4b8bc8; emissiveIntensity:1"
+              animation="property: material.emissiveIntensity; from:1; to:3; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              class="clickable"
+            ></a-plane>
+            <a-plane
+              id="zinc-off"
+              src="#zinc_off"
+              position="0.28 -0.15 0.02"
+              height="0.5"
+              width="0.5"
+              rotation="0 0 0"
+              material="transparent:true; shader:standard; color:#000; emissive:#4b8bc8; emissiveIntensity:1"
+              animation="property: material.emissiveIntensity; from:1; to:3; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+              class="clickable"
+            ></a-plane>
+            <a-plane
+              id="lactose-off"
+              src="#lactose_off"
+              position="0.28 -0.46 0.03"
+              height="0.5"
+              width="0.5"
               rotation="0 0 0"
               material="transparent:true; shader:standard; color:#000; emissive:#4b8bc8; emissiveIntensity:1"
               animation="property: material.emissiveIntensity; from:1; to:3; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
@@ -250,10 +272,21 @@
       document.querySelector("#zinc-off").addEventListener("click", (e) => {
         console.log("clicked:, zinc-off", zinc);
         if (!zinc) {
+          // e.target.setAttribute(
+          //   "material",
+          //   "shader:gif;src:#zinc_on; transparent: true"
+          // );
+
           e.target.setAttribute(
             "material",
-            "shader:gif;src:#zinc_on; transparent: true"
+            "transparent:true; shader:standard; color:#fff; emissive:#181818; emissiveIntensity:1;"
           );
+
+          e.target.setAttribute(
+            "animation",
+            "property: material.emissiveIntensity; from:0; to:1; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+          );
+
           zinc = true;
 
           if (lr && zinc && lactose) {
@@ -274,10 +307,21 @@
       document.querySelector("#lactose-off").addEventListener("click", (e) => {
         console.log("clicked:, lactose-off", lactose);
         if (!lactose) {
+          // e.target.setAttribute(
+          //   "material",
+          //   "shader:gif;src:#lactose_on; transparent: true"
+          // );
+
           e.target.setAttribute(
             "material",
-            "shader:gif;src:#lactose_on; transparent: true"
+            "transparent:true; shader:standard; color:#fff; emissive:#181818; emissiveIntensity:1;"
           );
+
+          e.target.setAttribute(
+            "animation",
+            "property: material.emissiveIntensity; from:0; to:1; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
+          );
+
           lactose = true;
 
           if (lr && zinc && lactose) {
