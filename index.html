@@ -34,7 +34,7 @@
     > -->
     <a-scene>
       <a-assets timeout="20000">
-        <img id="laban_ready" src="./assets/laban_ready3.gif" />
+        <!-- <img id="laban_ready" src="./assets/laban_ready3.gif" />
         <img id="fr1" src="./pages/frame_1.png" />
         <img id="fr2" src="./pages/frame_2a.png" />
         <img id="fr3" src="./pages/FR3.png" />
@@ -47,21 +47,37 @@
         <img id="fr10" src="./pages/frame_9_1.png" />
         <img id="fr11" src="./pages/frame_9_2.png" />
         <img id="fr12" src="./pages/frame_9_3.png" />
-        <img id="fr13" src="./pages/frame_10.png" />
+        <img id="fr13" src="./pages/frame_10a.png" />
         <img id="fr14" src="./pages/FR11.png" />
         <img id="fr15" src="./pages/FR12.png" />
         <img id="fr16" src="./pages/frame_13.png" />
         <img id="fr17" src="./pages/FR14.png" />
         <img id="fr18" src="./pages/FR15.png" />
         <img id="fr19" src="./pages/FR16.png" />
-        <img id="fr20" src="./pages/FR17.png" />
+        <img id="fr20" src="./pages/FR17.png" /> -->
 
-        <!-- <img id="lr_off" src="./assets/lr_off1.gif" />
-        <img id="zinc_off" src="./assets/zinc_off1.gif" />
-        <img id="lactose_off" src="./assets/lactose_off1.gif" />
-        <img id="lr_on" src="./assets/lr_on1.gif" />
-        <img id="zinc_on" src="./assets/zinc_on1.gif" />
-        <img id="lactose_on" src="./assets/lactose_on1.gif" /> -->
+        <img id="laban_ready" src="./assets/laban_ready3.gif" />
+
+        <img id="fr1" src="./pages2/FR1.png" />
+        <img id="fr2" src="./pages2/FR2.png" />
+        <img id="fr3" src="./pages2/FR3.png" />
+        <img id="fr4" src="./pages2/FR4.png" />
+        <img id="fr5" src="./pages2/FR5.png" />
+        <img id="fr6" src="./pages2/FR6.png" />
+        <img id="fr7" src="./pages2/FR7.png" />
+        <img id="fr8" src="./pages2/FR8.png" />
+        <img id="fr9" src="./pages2/FR9.png" />
+        <img id="fr10" src="./pages2/FR9.1.png" />
+        <img id="fr11" src="./pages2/FR9.2.png" />
+        <img id="fr12" src="./pages2/FR9.3.png" />
+        <img id="fr13" src="./pages2/FR10.png" />
+        <img id="fr14" src="./pages2/FR11.png" />
+        <img id="fr15" src="./pages2/FR12.png" />
+        <img id="fr16" src="./pages2/FR13.png" />
+        <img id="fr17" src="./pages2/FR14.png" />
+        <img id="fr18" src="./pages2/FR15.png" />
+        <img id="fr19" src="./pages2/FR16.png" />
+        <img id="fr20" src="./pages2/FR17.png" />
 
         <img id="lr_off" src="./assets/lr_on2.png" />
         <img id="zinc_off" src="./assets/zinc_on2.png" />
@@ -180,28 +196,28 @@
             <a-image
               src="#glow1"
               scale="0.3 0.3 0.3"
-              position="0.28 0.16 0.08"
+              position="0.28 0.16 0.01"
               material="transparent:true; shader:standard; color:#fca024; emissive:#fca024; emissiveIntensity:1"
               animation="property: scale; from:0.3 0.3 0.3; to:0.8 0.8 0.8; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
             ></a-image>
             <a-image
               src="#glow1"
               scale="0.3 0.3 0.3"
-              position="0.28 -0.15 0.08"
+              position="0.28 -0.15 0.02"
               material="transparent:true; shader:standard; color:#fca024; emissive:#fca024; emissiveIntensity:1"
               animation="property: scale; from:0.3 0.3 0.3; to:0.8 0.8 0.8; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
             ></a-image>
             <a-image
               src="#glow1"
               scale="0.3 0.3 0.3"
-              position="0.28 -0.46 0.08"
+              position="0.28 -0.46 0.03"
               material="transparent:true; shader:standard; color:#fca024; emissive:#fca024; emissiveIntensity:1"
               animation="property: scale; from:0.3 0.3 0.3; to:0.8 0.8 0.8; dur: 1500; loop:true; easings: easeInOutSine; dir: alternate; autoplay: true"
             ></a-image>
             <a-plane
               id="lr-off"
               src="#lr_on"
-              position="0.28 0.16 0.1"
+              position="0.28 0.16 0.04"
               height="0.5"
               width="0.5"
               rotation="0 0 0"
@@ -212,7 +228,7 @@
             <a-plane
               id="zinc-off"
               src="#zinc_on"
-              position="0.28 -0.15 0.1"
+              position="0.28 -0.15 0.05"
               height="0.5"
               width="0.5"
               rotation="0 0 0"
@@ -223,7 +239,7 @@
             <a-plane
               id="lactose-off"
               src="#lactose_on"
-              position="0.28 -0.46 0.1"
+              position="0.28 -0.46 0.06"
               height="0.5"
               width="0.5"
               rotation="0 0 0"
@@ -245,7 +261,7 @@
           <a-plane
             id="back"
             src="#back-button"
-            position="0.01 -0.74 0.1"
+            position="0.01 -0.8 0.1"
             height="0.26"
             width="0.6"
             rotation="0 0 0"
@@ -258,7 +274,7 @@
             src="#lr_on"
             height="0.64"
             width="0.64"
-            position="-0.22 0.04 0.1"
+            position="-0.22 0.04 0.11"
             class="clickable"
             material="transparent: true"
           ></a-plane>
@@ -268,7 +284,7 @@
             src="#lactose_on"
             height="0.5"
             width="0.5"
-            position="0.24 0.19 0.11"
+            position="0.24 0.19 0.12"
             class="clickable"
             material="transparent: true"
           ></a-plane>
@@ -278,7 +294,7 @@
             src="#zinc_on"
             height="0.52"
             width="0.52"
-            position="0.23 -0.14 0.12"
+            position="0.23 -0.14 0.13"
             class="clickable"
             material="transparent: true"
           ></a-plane>
@@ -296,9 +312,9 @@
     var dragging = false;
     var dragTarget = "";
     var dragPositions = {
-      ball1: { x: -0.22, y: 0 },
-      ball2: { x: 0.24, y: 0.19 },
-      ball3: { x: 0.23, y: -0.14 },
+      ball1: { x: -0.22, y: 0, z: 0.01 },
+      ball2: { x: 0.24, y: 0.19, z: 0.11 },
+      ball3: { x: 0.23, y: -0.14, z: 0.12 },
     };
     var startX = 0;
     var startY = 0;
@@ -440,19 +456,19 @@
               .querySelector("#ball1")
               .setAttribute(
                 "position",
-                `${dragPositions["ball1"].x} ${dragPositions["ball1"].y} 0.1`
+                `${dragPositions["ball1"].x} ${dragPositions["ball1"].y} ${dragPositions["ball1"].z}`
               );
             document
               .querySelector("#ball2")
               .setAttribute(
                 "position",
-                `${dragPositions["ball2"].x} ${dragPositions["ball2"].y} 0.11`
+                `${dragPositions["ball2"].x} ${dragPositions["ball2"].y} ${dragPositions["ball2"].z}`
               );
             document
               .querySelector("#ball3")
               .setAttribute(
                 "position",
-                `${dragPositions["ball3"].x} ${dragPositions["ball3"].y} 0.12`
+                `${dragPositions["ball3"].x} ${dragPositions["ball3"].y} ${dragPositions["ball3"].z}`
               );
 
             onClick();
@@ -503,7 +519,7 @@
             .querySelector("#" + dragTarget)
             .setAttribute(
               "position",
-              `${dragPositions[dragTarget].x} ${dragPositions[dragTarget].y} 0.1`
+              `${dragPositions[dragTarget].x} ${dragPositions[dragTarget].y} ${dragPositions[dragTarget].z}`
             );
         }
 
@@ -526,7 +542,10 @@
 
           document
             .querySelector("#" + dragTarget)
-            .setAttribute("position", `${newX} ${-newY} 0.15`);
+            .setAttribute(
+              "position",
+              `${newX} ${-newY} ${dragPositions[dragTarget].z}`
+            );
 
           if (newX < -0.15) {
             if (dragTarget === "ball2") {
@@ -638,19 +657,20 @@
 
       if (ctr === 4) {
         ctr = 6;
+        document.querySelector("#page4").setAttribute("position", "0 0.05 0");
       }
 
       if (ctr === 7) {
-        document.querySelector("#page4").setAttribute("position", "0 0.25 0");
+        document.querySelector("#page4").setAttribute("position", "0 0.30 0");
       }
 
       if (ctr === 8) {
-        document.querySelector("#page4").setAttribute("position", "0 0.31 0");
+        document.querySelector("#page4").setAttribute("position", "0 0.32 0");
       }
 
       if (ctr === 9 && laban) {
         ctr = 12;
-        document.querySelector("#page4").setAttribute("position", "0 0.31 100");
+        document.querySelector("#page4").setAttribute("position", "0 0.32 100");
       }
 
       if (ctr === 12) {
@@ -664,19 +684,19 @@
           .querySelector("#ball1")
           .setAttribute(
             "position",
-            `${dragPositions["ball1"].x} ${dragPositions["ball1"].y} 0.1`
+            `${dragPositions["ball1"].x} ${dragPositions["ball1"].y} ${dragPositions["ball1"].z}`
           );
         document
           .querySelector("#ball2")
           .setAttribute(
             "position",
-            `${dragPositions["ball2"].x} ${dragPositions["ball2"].y} 0.11`
+            `${dragPositions["ball2"].x} ${dragPositions["ball2"].y} ${dragPositions["ball2"].z}`
           );
         document
           .querySelector("#ball3")
           .setAttribute(
             "position",
-            `${dragPositions["ball3"].x} ${dragPositions["ball3"].y} 0.12`
+            `${dragPositions["ball3"].x} ${dragPositions["ball3"].y} ${dragPositions["ball3"].z}`
           );
       }
 
